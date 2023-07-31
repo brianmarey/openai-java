@@ -4,6 +4,7 @@ import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
+import us.careydevelopment.ai.openai.support.ChatCompletionRequestHelper;
 import us.careydevelopment.ai.openai.support.OpenAiServiceHelper;
 
 import java.util.ArrayList;
@@ -11,15 +12,10 @@ import java.util.List;
 
 public class BasicCompletionTest {
     public static void main(String[] args) {
-        final List<ChatMessage> messages = getMessages();
-
         final OpenAiService service = OpenAiServiceHelper.getOpenAiService();
 
-        final ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest
-                .builder()
-                .model("gpt-3.5-turbo-0613")
-                .messages(messages)
-                .build();
+        final List<ChatMessage> messages = getMessages();
+        final ChatCompletionRequest chatCompletionRequest = ChatCompletionRequestHelper.getRequest(messages);
 
         service.createChatCompletion(chatCompletionRequest)
                 .getChoices()
